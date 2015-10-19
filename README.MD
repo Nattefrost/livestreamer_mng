@@ -9,7 +9,9 @@
 ####################
 
 -Right-click install.ps1 and click "Execute with powershell"
+
 -Follow instructions, during the python install dont forget to check "Add python to PATH"
+
 -After that you should have a shortcut on your desktop launch it and you should be done.
 
 ####################
