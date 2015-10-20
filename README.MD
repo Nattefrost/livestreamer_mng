@@ -11,8 +11,10 @@
 - Right-click install.ps1 and click "Execute with powershell"
 
 - Follow instructions, during the python install dont forget to check "Add python to PATH"
+If you already have python3 installed on your computer, just exit the installer when it starts. 
+If you have python 2 and it's in the PATH, alias your .exes and use pip to download livestreamer.
 
-- After that you should have a shortcut on your desktop launch it and you should be done.
+- After that you should have a shortcut on your desktop, double-click it and you should be done.
 
 ####################
 #### HOW TO USE ####
@@ -28,5 +30,5 @@ You should see a window with a list of urls you entered in 'streams.txt' only th
 Select the one you want to watch, double-click or press RETURN and enjoy your stream. =)
 
 
-For any problem (not related to livestreamer as I am not the author of this library) or request, send a mail to
+For any problem(this soft is in a very early stage) or request, send a mail to
 escande dot d at gmail dot com
