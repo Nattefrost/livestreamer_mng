@@ -8,7 +8,7 @@
 #### INSTALLING ####
 ####################
 
-- Right-click install.ps1 and click "Execute with powershell"
+- Double click "install.bat"
 
 - Follow instructions, during the python install dont forget to check "Add python to PATH"
 If you already have python3 installed on your computer, just exit the installer when it starts. 
