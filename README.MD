@@ -7,14 +7,28 @@
 ####################
 #### INSTALLING ####
 ####################
+ 
+ ####################
+#### WINDOWS ####
+####################
 
 - Double click "install.bat"
-
 - Follow instructions, during the python install dont forget to check "Add python to PATH"
 If you already have python3 installed on your computer, just exit the installer when it starts. 
 If you have python 2 and it's in the PATH, alias your .exes and use pip to download livestreamer.
-
 - After that you should have a shortcut on your desktop, double-click it and you should be done.
+
+####################
+#### GNU/LINUX ####
+####################
+
+- sh install.sh
+- sh start.sh
+If this doesnt work, make sure you have installed : 
+
+-vlc
+- python3
+- pip for python3 (python packet manager)
 
 ####################
 #### HOW TO USE ####

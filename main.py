@@ -43,7 +43,7 @@ class Monitor:
         selected_idx = self.streams_box.curselection()
         item = self.streams_box.get(selected_idx[0])
         self.root.withdraw()
-        print("TRYING TO READ STREAM \n ===> %s \n =====" %item)
+        print("TRYING TO READ STREAM \n ===> %s " %item)
         current_stream = os.system("livestreamer {}".format(item) )
         self.root.deiconify()
         self.streams_box.focus_set()
@@ -58,9 +58,12 @@ class Monitor:
         """ Getting all qualities for each stream url """
         data = []
         for url in self.streams_urls:
-            url = url[:-1]
-            options = livestreamer.streams(url)
-            data.append( ["{1} {0}".format(k,url) for k,v in options.items() if k == "medium" or k=="high" or k == "best" or k=="720p" or k =="480p"])
+            try:
+                url = url[:-1]
+                options = livestreamer.streams(url)
+                data.append( ["{1} {0}".format(k,url) for k,v in options.items() if k == "medium" or k=="high" or k == "best" or k=="720p" or k =="480p" or k == "680p"])
+            except Warning:
+                print("COULDNT LOAD {}".format(url) )
         return data
         
     def insert_streams(self):
@@ -73,5 +76,5 @@ class Monitor:
         sys.exit(0)
 
 if __name__ == '__main__':
-    mon = Monitor()
+    app = Monitor()
 
