@@ -13,7 +13,9 @@ $webclient = New-Object System.Net.WebClient
 $url = "https://www.python.org/ftp/python/3.4.2/python-3.4.2.msi"
 $file = "./python3.msi"
 $webclient.DownloadFile($url,$file)
-Start-Process .\python3.msi
+
+Start-Process .\python3.msi | out-null
+#Start-Sleep -s 120
 & pip install livestreamer
 echo "Install over, launch start.bat"
 

@@ -1,2 +1,1 @@
-powershell.exe Set-ExecutionPolicy Unrestricted
-powershell.exe  -noexit  -file .\install.ps1
+Powershell.exe -executionpolicy Unrestricted -File  ./install.ps1

@@ -58,3 +58,6 @@ target/
 
 # Bat
 start.bat
+
+# Microsoft installer
+*.msi
