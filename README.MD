@@ -1,6 +1,4 @@
-#INSTALLING
-
-# ON WINDOWS 
+# INSTALLING ON WINDOWS 
 
 - Make sure you have VLC media player installed
 - Double click "install.bat"
@@ -10,7 +8,7 @@ If you have python 2 and it's in the PATH, alias your .exes and use pip to downl
 - After that you should have a shortcut on your desktop, double-click it and you should be done.
 
 
-# ON GNU/LINUX 
+# INSTALLING ON GNU/LINUX 
 
 - sh install.sh
 - sh start.sh
