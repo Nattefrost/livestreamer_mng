@@ -1,41 +1,29 @@
-####################
-### REQUIREMENTS ###
-####################
+#INSTALLING
 
-- VLC media player installed
+# ON WINDOWS 
 
-####################
-#### INSTALLING ####
-####################
-
- 
- ####################
-#### WINDOWS ####
-####################
-
+- Make sure you have VLC media player installed
 - Double click "install.bat"
 - Follow instructions, during the python install dont forget to check "Add python to PATH"
 If you already have python3 installed on your computer, just exit the installer when it starts. 
 If you have python 2 and it's in the PATH, alias your .exes and use pip to download livestreamer.
 - After that you should have a shortcut on your desktop, double-click it and you should be done.
 
-####################
-#### GNU/LINUX ####
-####################
+
+# ON GNU/LINUX 
 
 - sh install.sh
 - sh start.sh
-If this doesnt work, you can separately install : 
 
+If this doesnt work, you can separately install : 
 - vlc
 - python3
 - tkinter for python3
 - pip for python3 (python packet manager)
 - livestreamer as a python package (pip install livestreamer)
 
-####################
-#### HOW TO USE ####
-####################
+# ON HOW TO USE
+
 
 Open file 'streams.txt', copy-paste urls from your favourite streamers. This file should not contain ANYTHING ELSE than urls.
 So a line in this file should look like this (dont forget 'http://'): http://streamingWebsite.com/channelName
