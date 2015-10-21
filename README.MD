@@ -7,6 +7,7 @@
 ####################
 #### INSTALLING ####
 ####################
+
  
  ####################
 #### WINDOWS ####
@@ -24,11 +25,13 @@ If you have python 2 and it's in the PATH, alias your .exes and use pip to downl
 
 - sh install.sh
 - sh start.sh
-If this doesnt work, make sure you have installed : 
+If this doesnt work, you can separately install : 
 
--vlc
+- vlc
 - python3
+- tkinter for python3
 - pip for python3 (python packet manager)
+- livestreamer as a python package (pip install livestreamer)
 
 ####################
 #### HOW TO USE ####
