@@ -18,7 +18,7 @@ class Monitor:
         self.streams_urls = self.read_streamlist()
         self.all_statuses = self.get_streams_status()
         self.root = tk.Tk()
-        self.root.windowIcon = tk.PhotoImage("photo", file="{}/ico.png".format(ACTIVE_DIR)) # setting icon
+        self.root.windowIcon = tk.PhotoImage("photo", file="./ico.png") # setting icon
         self.root.tk.call('wm','iconphoto',self.root._w,self.root.windowIcon)
         self.style = ttk.Style()
         self.style.theme_use('clam')
@@ -50,7 +50,7 @@ class Monitor:
         
     def read_streamlist(self):
         """ Reading streamlist from filesystem """
-        with open("{}/streams.txt".format(ACTIVE_DIR), 'r') as f:
+        with open("./streams.txt", 'r') as f:
             content = f.readlines()
             return content
 
