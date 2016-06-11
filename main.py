@@ -15,56 +15,75 @@ ACTIVE_DIR = sys.path[0]
 class Monitor:
     def __init__(self):
         """ Mostly GUI stuff"""
-        self.streams_urls = self.read_streamlist()
-        self.all_statuses = self.get_streams_status()
+        self.streams_urls = None
+        self.all_statuses = None
         self.root = tk.Tk()
-        self.root.windowIcon = tk.PhotoImage("photo", file="./ico.png") # setting icon
+        self.root['bg'] = "#101235"
+        self.root.windowIcon = tk.PhotoImage("photo", file="{}/ico.png".format(ACTIVE_DIR)) # setting icon
         self.root.tk.call('wm','iconphoto',self.root._w,self.root.windowIcon)
         self.style = ttk.Style()
-        self.style.theme_use('clam')
+        self.style.theme_use('default')
         self.root.title("Livestreamer manager")
         self.root.geometry("600x500")
-        self.frame = tk.Frame(self.root,relief=tk.FLAT,bd=4)
-        self.frame.pack(fill=tk.BOTH,expand=True)
+        self.frame = tk.Frame(self.root,relief=tk.FLAT,bg="#101235")
+        self.frame.pack(fill=tk.BOTH, expand=True)
+        self.progbar = ttk.Progressbar(self.frame, orient="horizontal", maximum=100, mode="determinate",length=128)
+        self.progbar.pack(anchor=tk.W)
+        self.refresh_btn = tk.Button(self.frame, text="REFRESH STREAMS",bg="#D7D7C6", relief=tk.GROOVE,width=20,command=self.get_streams_status)
+        self.refresh_btn.pack(anchor=tk.W)
+        #self.button_frame = tk.Frame(self.root, relief=tk.FLAT,bd=4,bg="#101235")
+        #self.button_frame.pack(fill=tk.BOTH,pady=5,side=tk.LEFT)
         ysb = ttk.Scrollbar(self.frame)
         ysb.pack(side=tk.RIGHT,fill=tk.Y)
-        self.streams_box = tk.Listbox(self.frame, height=15,bg="#101235",relief=tk.FLAT,fg="white",font="Verdana 10 bold",selectbackground="firebrick",activestyle="underline")
-        self.streams_box.pack(fill=tk.BOTH,expand=True)
-        
-        self.insert_streams()
+        self.streams_box = tk.Listbox(self.frame, height=17,width=50,relief=tk.FLAT,fg="white",bg='#101235',font="Verdana 10 bold",selectbackground="firebrick",activestyle="underline")
+        self.get_streams_status()
+        self.streams_box.pack(pady=10, anchor=tk.W,fill=tk.Y,expand=True)
         self.root.bind('<Double-Button-1>', self.launch_stream )
         self.root.bind('<Escape>', self.quit )
-        self.root.bind('<Return>', self.launch_stream ) 
+        self.root.bind('<Return>', self.launch_stream )
+        self.root.bind('<F5>', self.get_streams_status)
         self.streams_box.focus_set()
+        
         self.root.mainloop()
+        
 
     def launch_stream(self,event=None):
         """ Sending system command to launch stream"""
         selected_idx = self.streams_box.curselection()
         item = self.streams_box.get(selected_idx[0])
         self.root.withdraw()
-        print("TRYING TO READ STREAM \n ===> %s " %item)
+        print("##### OPENING STREAM ##### \n ===> %s " %item)
         current_stream = os.system("livestreamer {}".format(item) )
         self.root.deiconify()
         self.streams_box.focus_set()
         
     def read_streamlist(self):
         """ Reading streamlist from filesystem """
-        with open("./streams.txt", 'r') as f:
+        with open("{}/streams.txt".format(ACTIVE_DIR), 'r') as f:
             content = f.readlines()
             return content
 
-    def get_streams_status(self):
+    def get_streams_status(self,event=None):
         """ Getting all qualities for each stream url """
+        self.streams_urls = self.read_streamlist()
+        self.streams_box.delete(0,tk.END)
+        self.progbar['value'] = 0
+        size = len(self.streams_urls)
+        delta = self.progbar['maximum']//size
         data = []
         for url in self.streams_urls:
             try:
-                url = url[:-1]
+                url = url[:-1] # ignore trailing space
                 options = livestreamer.streams(url)
                 data.append( ["{1} {0}".format(k,url) for k,v in options.items() if k == "medium" or k=="high" or k == "best" or k=="720p" or k =="480p" or k == "680p"])
+                self.progbar.step(delta)
+                self.root.update() # refresh display
             except Warning:
                 print("COULDNT LOAD {}".format(url) )
-        return data
+        self.progbar['value'] = self.progbar['maximum']
+        self.all_statuses = data
+        self.insert_streams()
+        
         
     def insert_streams(self):
         for cmd in self.all_statuses:
