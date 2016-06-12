@@ -29,7 +29,7 @@ class Monitor:
         self.frame.pack(fill=tk.BOTH, expand=True)
         self.progbar = ttk.Progressbar(self.frame, orient="horizontal", maximum=100, mode="determinate",length=128)
         self.progbar.pack(anchor=tk.W)
-        self.refresh_btn = tk.Button(self.frame, text="REFRESH STREAMS",bg="#D7D7C6", relief=tk.GROOVE,width=20,command=self.get_streams_status)
+        self.refresh_btn = tk.Button(self.frame, text="REFRESH (F5)",bg="#D7D7C6", relief=tk.GROOVE,width=20,command=self.get_streams_status)
         self.refresh_btn.pack(anchor=tk.W)
         #self.button_frame = tk.Frame(self.root, relief=tk.FLAT,bd=4,bg="#101235")
         #self.button_frame.pack(fill=tk.BOTH,pady=5,side=tk.LEFT)
@@ -37,11 +37,11 @@ class Monitor:
         ysb.pack(side=tk.RIGHT,fill=tk.Y)
         self.streams_box = tk.Listbox(self.frame, height=17,width=50,relief=tk.FLAT,fg="white",bg='#101235',font="Verdana 10 bold",selectbackground="firebrick",activestyle="underline")
         self.get_streams_status()
-        self.streams_box.pack(pady=10, anchor=tk.W,fill=tk.Y,expand=True)
+        self.streams_box.pack(pady=10, anchor=tk.W,fill=tk.BOTH,expand=True)
         self.root.bind('<Double-Button-1>', self.launch_stream )
         self.root.bind('<Escape>', self.quit )
         self.root.bind('<Return>', self.launch_stream )
-        self.root.bind('<F5>', self.get_streams_status)
+        self.root.bind('<F5>', self.get_streams_status )
         self.streams_box.focus_set()
         
         self.root.mainloop()
@@ -65,6 +65,7 @@ class Monitor:
 
     def get_streams_status(self,event=None):
         """ Getting all qualities for each stream url """
+        self.refresh_btn['state'] = 'disabled'
         self.streams_urls = self.read_streamlist()
         self.streams_box.delete(0,tk.END)
         self.progbar['value'] = 0
@@ -83,7 +84,7 @@ class Monitor:
         self.progbar['value'] = self.progbar['maximum']
         self.all_statuses = data
         self.insert_streams()
-        
+        self.refresh_btn['state'] = 'normal'
         
     def insert_streams(self):
         for cmd in self.all_statuses:
