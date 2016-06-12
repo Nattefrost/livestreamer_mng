@@ -21,29 +21,35 @@ class Monitor:
         self.root['bg'] = "#101235"
         self.root.windowIcon = tk.PhotoImage("photo", file="{}/ico.png".format(ACTIVE_DIR)) # setting icon
         self.root.tk.call('wm','iconphoto',self.root._w,self.root.windowIcon)
+        self.root.title("Livestreamer manager")
+        #self.root.geometry("600x500")
+        # Styling config
         self.style = ttk.Style()
         self.style.theme_use('default')
-        self.root.title("Livestreamer manager")
-        self.root.geometry("600x500")
+        self.style.configure("custom.Horizontal.TProgressbar",  troughcolor ='#AE1B6A', background='cyan', foreground='yellow',thickness=18)
+        # FRAMES
+        self.button_frame = tk.Frame(self.root, relief=tk.FLAT,bd=4,bg="#101235")
+        self.button_frame.grid(row=0,column=0,sticky=tk.W)
         self.frame = tk.Frame(self.root,relief=tk.FLAT,bg="#101235")
-        self.frame.pack(fill=tk.BOTH, expand=True)
-        self.progbar = ttk.Progressbar(self.frame, orient="horizontal", maximum=100, mode="determinate",length=128)
-        self.progbar.pack(anchor=tk.W)
-        self.refresh_btn = tk.Button(self.frame, text="REFRESH (F5)",bg="#D7D7C6", relief=tk.GROOVE,width=20,command=self.get_streams_status)
-        self.refresh_btn.pack(anchor=tk.W)
-        #self.button_frame = tk.Frame(self.root, relief=tk.FLAT,bd=4,bg="#101235")
-        #self.button_frame.pack(fill=tk.BOTH,pady=5,side=tk.LEFT)
+        self.frame.grid(row=1,column=0,columnspan=3)
+        # Widgets
+        self.progbar = ttk.Progressbar(self.button_frame, style="custom.Horizontal.TProgressbar",orient="horizontal", maximum=100, mode="determinate",length=100)
+        self.progbar.grid(row=0,column=1,sticky=tk.W)
+        self.refresh_btn = ttk.Button(self.button_frame, text="REFRESH (F5)",command=self.get_streams_status)
+        self.refresh_btn.grid(row=0,column=0,sticky=tk.W)
+        
         ysb = ttk.Scrollbar(self.frame)
-        ysb.pack(side=tk.RIGHT,fill=tk.Y)
+        
         self.streams_box = tk.Listbox(self.frame, height=17,width=50,relief=tk.FLAT,fg="white",bg='#101235',font="Verdana 10 bold",selectbackground="firebrick",activestyle="underline")
         self.get_streams_status()
-        self.streams_box.pack(pady=10, anchor=tk.W,fill=tk.BOTH,expand=True)
+        
         self.root.bind('<Double-Button-1>', self.launch_stream )
         self.root.bind('<Escape>', self.quit )
         self.root.bind('<Return>', self.launch_stream )
         self.root.bind('<F5>', self.get_streams_status )
         self.streams_box.focus_set()
-        
+        ysb.pack(side=tk.RIGHT,fill=tk.Y)
+        self.streams_box.pack(pady=10, anchor=tk.W,fill=tk.BOTH,expand=True)
         self.root.mainloop()
         
 
@@ -51,10 +57,10 @@ class Monitor:
         """ Sending system command to launch stream"""
         selected_idx = self.streams_box.curselection()
         item = self.streams_box.get(selected_idx[0])
-        self.root.withdraw()
+        #self.root.withdraw()
         print("##### OPENING STREAM ##### \n ===> %s " %item)
         current_stream = os.system("livestreamer {}".format(item) )
-        self.root.deiconify()
+        #self.root.deiconify()
         self.streams_box.focus_set()
         
     def read_streamlist(self):

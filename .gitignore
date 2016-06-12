@@ -58,6 +58,8 @@ target/
 
 # Bat
 start.bat
+geany_run_script.bat
 
 # Microsoft installer
 *.msi
+
