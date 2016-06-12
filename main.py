@@ -40,7 +40,7 @@ class Monitor:
         
         ysb = ttk.Scrollbar(self.frame)
         
-        self.streams_box = tk.Listbox(self.frame, height=17,width=50,relief=tk.FLAT,fg="white",bg='#101235',font="Verdana 10 bold",selectbackground="firebrick",activestyle="underline")
+        self.streams_box = tk.Listbox(self.frame, height=20,width=50,relief=tk.FLAT,fg="white",bg='#101235',font="Verdana 10 bold",selectbackground="firebrick",activestyle="underline")
         self.get_streams_status()
         
         self.root.bind('<Double-Button-1>', self.launch_stream )
@@ -57,10 +57,10 @@ class Monitor:
         """ Sending system command to launch stream"""
         selected_idx = self.streams_box.curselection()
         item = self.streams_box.get(selected_idx[0])
-        #self.root.withdraw()
+        self.root.withdraw()
         print("##### OPENING STREAM ##### \n ===> %s " %item)
         current_stream = os.system("livestreamer {}".format(item) )
-        #self.root.deiconify()
+        self.root.deiconify()
         self.streams_box.focus_set()
         
     def read_streamlist(self):
@@ -85,7 +85,7 @@ class Monitor:
                 data.append( ["{1} {0}".format(k,url) for k,v in options.items() if k == "medium" or k=="high" or k == "best" or k=="720p" or k =="480p" or k == "680p"])
                 self.progbar.step(delta)
                 self.root.update() # refresh display
-            except Warning:
+            except:
                 print("COULDNT LOAD {}".format(url) )
         self.progbar['value'] = self.progbar['maximum']
         self.all_statuses = data
