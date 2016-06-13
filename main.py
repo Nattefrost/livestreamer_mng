@@ -26,7 +26,7 @@ class Monitor:
         # Styling config
         self.style = ttk.Style()
         self.style.theme_use('default')
-        self.style.configure("custom.Horizontal.TProgressbar",  troughcolor ='slate gray', background='green yellow', foreground='white',thickness=18)
+        self.style.configure("custom.Horizontal.TProgressbar",  troughcolor ="VioletRed4", background='green yellow', foreground='white',thickness=18)
         # FRAMES
         self.button_frame = tk.Frame(self.root, relief=tk.RAISED,bd=7,bg="#101235")
         self.button_frame.grid(row=0,column=0,sticky=tk.W)
