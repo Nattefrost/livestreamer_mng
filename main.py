@@ -75,17 +75,17 @@ class Monitor:
         self.streams_urls = self.read_streamlist()
         self.streams_box.delete(0,tk.END)
         self.progbar['value'] = 0
-        self.root.update()
+        
         size = len(self.streams_urls)
         delta = self.progbar['maximum']//size
         data = []
         for url in self.streams_urls:
+            self.root.update() # refresh display
             try:
                 url = url[:-1] # ignore trailing space
                 options = livestreamer.streams(url)
                 data.append( ["{1} {0}".format(k,url) for k,v in options.items() if k == "medium" or k=="high" or k == "best" or k=="720p" or k =="480p" or k == "680p"])
                 self.progbar.step(delta)
-                self.root.update() # refresh display
             except:
                 print("COULDNT LOAD {}".format(url) )
         self.progbar['value'] = self.progbar['maximum']
