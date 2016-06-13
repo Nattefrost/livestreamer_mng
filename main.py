@@ -75,6 +75,7 @@ class Monitor:
         self.streams_urls = self.read_streamlist()
         self.streams_box.delete(0,tk.END)
         self.progbar['value'] = 0
+        self.root.update()
         size = len(self.streams_urls)
         delta = self.progbar['maximum']//size
         data = []
