@@ -37,6 +37,15 @@ class Monitor:
         self.progbar.grid(row=0,column=1,sticky=tk.W)
         self.refresh_btn = ttk.Button(self.button_frame, text="REFRESH (F5)",command=self.get_streams_status)
         self.refresh_btn.grid(row=0,column=0,sticky=tk.W)
+        self.empty_label = tk.Label(self.button_frame,text="",bg="#101235",width=3 )
+        self.empty_label.grid(row=0,column=2)
+        self.entry_content = tk.StringVar()
+        self.url_entry = ttk.Entry(self.button_frame,textvariable=self.entry_content)
+        self.url_entry.grid(row=0,column=3,sticky=tk.W)
+        self.url_button = ttk.Button(self.button_frame,text="ADD STREAM",command=self.add_stream)
+        self.url_button.grid(row=0,column=4,sticky=tk.W)
+        self.test_url_button = ttk.Button(self.button_frame, text="Test URL")
+        self.test_url_button.grid(row=0,column=5,sticky=tk.W)
         
         ysb = ttk.Scrollbar(self.frame)
         
@@ -98,7 +107,11 @@ class Monitor:
             if cmd:
                 for quality in cmd:
                     self.streams_box.insert(tk.END, quality)
-            
+                    
+    def add_stream(self):
+        url = self.entry_content.get()
+        # make regex
+        
     def quit(self, event=None):
         sys.exit(0)
 
